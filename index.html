@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Segmento Demo Site</title>
+  <title>Segmento Analytics Demo</title>
+
+  <meta name="description" content="Segmento demo site for analytics, tracking, and data platform testing.">
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-EHE3D6SLZ1"></script>
@@ -12,49 +15,256 @@
   <script>
     window.dataLayer = window.dataLayer || [];
 
-    function gtag(){
+    function gtag() {
       dataLayer.push(arguments);
     }
 
     gtag('js', new Date());
     gtag('config', 'G-EHE3D6SLZ1');
-
   </script>
+
+
+  <!-- Styles -->
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(120deg, #0f172a, #1e293b);
+      color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      padding: 40px;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 700px;
+      box-shadow: 0 0 40px rgba(0,0,0,0.4);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      color: #38bdf8;
+    }
+
+    p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.08);
+      padding: 20px;
+      border-radius: 12px;
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      font-size: 1.8rem;
+      color: #22c55e;
+    }
+
+    .card span {
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      background: #38bdf8;
+      color: #020617;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #0ea5e9;
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 0.85rem;
+      opacity: 0.6;
+    }
+
+  </style>
 
 </head>
 
 
 <body>
 
-  <h1>Welcome to Segmento Demo</h1>
 
-  <p>This is a test website for analytics tracking.</p>
+<div class="container">
 
-  <button onclick="alert('Clicked!')">Click Me</button>
+  <h1>Segmento Analytics Demo</h1>
+
+  <p>
+    This demo site is used for testing Google Analytics, Search Console,
+    and Segmento's unified data platform.
+  </p>
 
 
-  <!-- Test Event -->
-  <script>
+  <!-- Stats -->
+  <div class="stats">
 
-    setTimeout(function(){
+    <div class="card">
+      <h3 id="visits">0</h3>
+      <span>Page Views</span>
+    </div>
 
-      if(window.gtag){
+    <div class="card">
+      <h3 id="clicks">0</h3>
+      <span>Button Clicks</span>
+    </div>
 
-        gtag('event','segmento_test',{
-          source:'github_pages'
-        });
+    <div class="card">
+      <h3 id="events">0</h3>
+      <span>Custom Events</span>
+    </div>
 
-        console.log("GA test event sent");
+  </div>
 
-      } else {
 
-        console.log("gtag not loaded");
+  <!-- Actions -->
+  <div class="buttons">
 
-      }
+    <button onclick="trackClick()">Click Action</button>
 
-    },3000);
+    <button onclick="sendCustomEvent()">Send Event</button>
 
-  </script>
+    <button onclick="simulateUser()">Simulate User</button>
+
+  </div>
+
+
+  <footer>
+    Segmento Data Platform • Demo Environment
+  </footer>
+
+</div>
+
+
+
+<!-- Scripts -->
+<script>
+
+  let views = 1;
+  let clicks = 0;
+  let events = 0;
+
+
+  // Track page view
+  document.getElementById("visits").innerText = views;
+
+
+  function trackClick() {
+
+    clicks++;
+    document.getElementById("clicks").innerText = clicks;
+
+    if (window.gtag) {
+
+      gtag('event', 'segmento_click', {
+        event_category: 'interaction',
+        event_label: 'click_action'
+      });
+
+    }
+
+  }
+
+
+  function sendCustomEvent() {
+
+    events++;
+    document.getElementById("events").innerText = events;
+
+    if (window.gtag) {
+
+      gtag('event', 'segmento_custom_event', {
+        event_category: 'custom',
+        source: 'demo_site'
+      });
+
+    }
+
+  }
+
+
+  function simulateUser() {
+
+    if (window.gtag) {
+
+      gtag('event', 'segmento_simulated_session', {
+        event_category: 'simulation',
+        duration: Math.floor(Math.random() * 300),
+        pages: Math.floor(Math.random() * 5) + 1
+      });
+
+    }
+
+    alert("Simulated user session sent!");
+
+  }
+
+
+  // Auto test event after load
+  setTimeout(() => {
+
+    if (window.gtag) {
+
+      gtag('event', 'segmento_auto_test', {
+        source: 'github_pages'
+      });
+
+      events++;
+      document.getElementById("events").innerText = events;
+
+      console.log("Auto test event sent");
+
+    }
+
+  }, 3000);
+
+</script>
 
 
 </body>
