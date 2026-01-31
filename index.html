@@ -1,18 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+  <meta charset="UTF-8">
+
   <title>Segmento Demo Site</title>
 
   <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H4K93Z026K"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EHE3D6SLZ1"></script>
+
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+
+    function gtag(){
+      dataLayer.push(arguments);
+    }
+
     gtag('js', new Date());
-    gtag('config', 'G-H4K93Z026K');
+    gtag('config', 'G-EHE3D6SLZ1');
+
   </script>
 
 </head>
+
 
 <body>
 
@@ -22,7 +32,30 @@
 
   <button onclick="alert('Clicked!')">Click Me</button>
 
+
+  <!-- Test Event -->
+  <script>
+
+    setTimeout(function(){
+
+      if(window.gtag){
+
+        gtag('event','segmento_test',{
+          source:'github_pages'
+        });
+
+        console.log("GA test event sent");
+
+      } else {
+
+        console.log("gtag not loaded");
+
+      }
+
+    },3000);
+
+  </script>
+
+
 </body>
-
 </html>
-
